@@ -5,9 +5,11 @@
   "license": "ISC",
   "author": "",
   "type": "commonjs",
+  "homepage": "https://leepolina.github.io/newgenfront3rd/",
   "scripts": {
     "start": "parcel src/index.html",
-    "deploy": "gh-pages -d build",
+    "build": "parcel build src/index.html",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
