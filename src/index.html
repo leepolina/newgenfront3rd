@@ -13,17 +13,55 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <header class="header"></header>
+    <header class="header">
+      <a href="./index.html" class="header_logo"
+        ><img class="header_logo-img" src="./img/logo.png" alt="logo"
+      /></a>
+      <div class="container">
+        <h2 class="header_title">
+          FIND BEST EVENTS <br />
+          AROUND THE WORLD
+        </h2>
+        <ul class="header_list">
+          <li class="header_item">
+            <input
+              class="header_input"
+              type="text"
+              placeholder="Start searching"
+            />
+            <svg class="header_svg">
+              <use
+                class="header_icon"
+                href="./img/symbol-defs.svg#icon-search"
+              ></use>
+            </svg>
+          </li>
+          <li class="header_item">
+            <input
+              class="header_input"
+              type="text"
+            
+              placeholder="Choose country"
+            />
+            <svg class="header_svg">
+              <use
+                class="header_icon"
+                href="./img/symbol-defs.svg#icon-arrow"
+              ></use>
+            </svg>
+            <ul class="header_list-country"></ul>
+          </li>
+        </ul>
+      </div>
+    </header>
     <main class="main">
-      <section class="events">
-        <div class="container">
-          <h1>Find best events around the world</h1>
-          <ul id="events-list"></ul>
-          <div id="pagination"></div>
-        </div>
-      </section>
+     
     </main>
-
+    <footer class="footer container">
+      <p class="footer_text">
+        © 2021 | All Rights Reserved | <br>Developed with ♥ by GoIT Students
+      </p>
+    </footer>
     <footer class="footer"></footer>
     <script type="module" src="./js/main.js"></script>
   </body>
