@@ -207,7 +207,7 @@
       });
     }
   }
-})({"93v64":[function(require,module,exports,__globalThis) {
+})({"7if0N":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -215,7 +215,7 @@ var HMR_SERVER_PORT = 1234;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "439701173a9199ea";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "f3e508fdb828852a";
+module.bundle.HMR_BUNDLE_ID = "20d3b94157de0e72";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_SERVER_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -713,82 +713,12 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     }
 }
 
-},{}],"lhpGb":[function(require,module,exports,__globalThis) {
-var _services = require("./services");
-const eventsList = document.querySelector("#events-list");
-function loadEvents(page = 0) {
-    (0, _services.fetchEvents)(page).then((events)=>{
-        console.log("Your events:", events);
-        renderEvents(events);
-    }).catch((error)=>{
-        console.error(error);
-    });
-}
-function renderEvents(events) {
-    eventsList.innerHTML = events.map((event)=>{
-        const image = event.images[0].url;
-        const name = event.name;
-        const date = event.dates.start.localDate;
-        return `
-        <li data-id="${event.id}" class="event-card">
-          <img src="${image}" alt="${name}" />
-          <h2>${name}</h2>
-          <p>${date}</p>
-        </li>
-      `;
-    }).join("");
-}
-loadEvents();
-
-},{"./services":"6C6UP"}],"6C6UP":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-// fetch(
-//   `https://app.ticketmaster.com/discovery/v2/events.json?apikey=nodlSYDYPs3zawFkRJQUF5HZXVlBWBCZ`,
-// ).then((data) => console.log(data));
-parcelHelpers.export(exports, "fetchEvents", ()=>fetchEvents);
+},{}],"6C6UP":[function(require,module,exports,__globalThis) {
 const API_KEY = "nodlSYDYPs3zawFkRJQUF5HZXVlBWBCZ";
-const BASE_URL = "https://app.ticketmaster.com/discovery/v2/";
-async function fetchEvents(page = 0) {
-    try {
-        const response = await fetch(`${BASE_URL}events.json?apikey=${API_KEY}&page=${page}&size=20`);
-        const data = await response.json();
-        return data._embedded.events;
-    } catch (error) {
-        console.error(error);
-    }
-}
+const BASE_URL = "https://app.ticketmaster.com/discovery/v2/"; // fetch(
+ //   `https://app.ticketmaster.com/discovery/v2/events.json?apikey=nodlSYDYPs3zawFkRJQUF5HZXVlBWBCZ`,
+ // ).then((data) => console.log(data));
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jnFvT":[function(require,module,exports,__globalThis) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
+},{}]},["7if0N","6C6UP"], "6C6UP", "parcelRequire2f81", {})
 
-},{}]},["93v64","lhpGb"], "lhpGb", "parcelRequire2f81", {})
-
-//# sourceMappingURL=newgenfront3rd.b828852a.js.map
+//# sourceMappingURL=newgenfront3rd.57de0e72.js.map
