@@ -15,7 +15,7 @@ input,
 a,
 section,
 body {
-    box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -60,7 +60,7 @@ ul {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
- position: relative;
+  position: relative;
 
   @media screen and (min-width: 768px) {
     padding-top: 40px;
@@ -151,28 +151,68 @@ ul {
 
   border-color: transparent;
   outline: transparent;
-
-  @media screen and (min-width: 768px) {
-  }
 }
 .header_input::placeholder {
   color: #939393;
   opacity: 0.8;
 }
-
-.header_svg {
+.header_option-button {
   position: absolute;
-  width: 12px;
-  height: 12px;
-  fill: #939393;
+  right: 25px;
+  top: 17px;
+  background-color: transparent;
+  border: transparent;
+}
+.search {
+  position: absolute;
   right: 25px;
   top: 17px;
 }
+.header_svg {
+  width: 12px;
+  height: 12px;
+  fill: #939393;
+}
+.header_option-button .header_svg {
+  transition: transform 0.3s ease;
+}
 
-.header_list-country {
+.header_option-button.header_svg-rotation .header_svg {
+  transform: rotate(180deg);
+}
+.header_list-city {
   overflow-y: auto;
   position: absolute;
   height: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #ffffff33;
+  border-radius: 20px;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  opacity: 1;
+  visibility: visible;
+}
+.header_list-city-invisibily {
+  opacity: 0;
+  visibility: hidden;
+}
+.header_item-city {
+  border-radius: 20px;
+  min-width: 270px;
+  background-color: #ffffff33;
+  backdrop-filter: blur(20px);
+}
+.header_text-city {
+  margin: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
 }
 .footer_text {
   font-family: "Montserrat", sans-serif;
@@ -181,6 +221,14 @@ ul {
   line-height: 100%;
   letter-spacing: 0%;
   text-align: center;
-
   color: #939393;
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+.none {
+  display: block;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 }
