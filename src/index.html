@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/style.css" />
+  <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" >
   </head>
   <body>
     <header class="header">
@@ -26,10 +27,11 @@
           <li class="header_item">
             <input
               class="header_input"
+              data="name"
               type="text"
               placeholder="Start searching"
             />
-            <svg class="header_svg">
+            <svg class="header_svg search">
               <use
                 class="header_icon"
                 href="./img/symbol-defs.svg#icon-search"
@@ -39,16 +41,20 @@
           <li class="header_item">
             <input
               class="header_input"
+              data="city"
               type="text"
-              placeholder="Choose country"
+              placeholder="Choose city"
             />
-            <svg class="header_svg">
+            <button class="header_option-button">
+                <svg class="header_svg">
               <use
                 class="header_icon"
                 href="./img/symbol-defs.svg#icon-arrow"
               ></use>
             </svg>
-            <ul class="header_list-country"></ul>
+            </button>
+          
+            <ul class="header_list-city header_list-city-invisibily"></ul>
           </li>
         </ul>
       </div>
@@ -58,7 +64,8 @@
     </main>
     <footer class="footer container">
       <p class="footer_text">
-        © 2021 | All Rights Reserved | <br />Developed with ♥ by GoIT Students
+        © 2021 | All Rights Reserved | <br class="none" />Developed with ♥ by
+        GoIT Students
       </p>
     </footer>
     <footer class="footer"></footer>
