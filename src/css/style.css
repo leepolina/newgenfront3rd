@@ -189,9 +189,7 @@ ul {
   gap: 5px;
   background-color: #ffffff33;
   border-radius: 20px;
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   opacity: 1;
   visibility: visible;
 }
@@ -231,4 +229,65 @@ ul {
   @media screen and (min-width: 768px) {
     display: none;
   }
+}
+
+.modal {
+  width: 272px;
+  height: auto;
+  padding: 25px 15px 104px;
+  background-color: white;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+  opacity: 1;
+  transform: translate(-50%, -50%), scale(1);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+@media screen and (min-width: 768px) {
+  .modal {
+    width: 595px;
+    padding: 25px 17px 56px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .modal {
+    width: 942px;
+    padding: 30px 30px 60px;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  background-color: #0c0c0c75;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#modal-open {
+  color: black;
+}
+#modal-close {
+  position: absolute;
+  right: 0.5%;
+  top: 5%;
 }
