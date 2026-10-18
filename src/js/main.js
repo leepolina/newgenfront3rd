@@ -1,12 +1,14 @@
 import { fetchEvents } from "./services";
 import { fetchSearch } from "./search";
-import { fetchCity } from "./fetchCity";
+import { fetchCity, fetchModal } from "./fetchCity";
+import { renderModal } from "./modal";
 
 const eventsList = document.querySelector("#events-list");
 const inputName = document.querySelector(".header_input[data=name]");
 const inputCity = document.querySelector(".header_input[data=city]");
 const listCity = document.querySelector(".header_list-city");
 const option = document.querySelector(".header_option-button");
+const containerModal = document.querySelector(".containerModal");
 let page = 1;
 function loadEvents(page = 0) {
   fetchEvents(page)
@@ -59,16 +61,16 @@ function searchCity() {
 
 inputName.addEventListener("input", searchName);
 inputCity.addEventListener("input", () => {
- option.classList.add("header_svg-rotation");
+  option.classList.add("header_svg-rotation");
   listCity.classList.remove("header_list-city-invisibily");
   let queryCity = inputCity.value.trim();
   fetchCity((page = 1), listCity, queryCity);
   searchCity();
 });
 option.addEventListener("click", () => {
- option.classList.toggle("header_svg-rotation");
- listCity.classList.toggle("header_list-city-invisibily");
-   let queryCity = inputCity.value.trim();
+  option.classList.toggle("header_svg-rotation");
+  listCity.classList.toggle("header_list-city-invisibily");
+  let queryCity = inputCity.value.trim();
   fetchCity((page = 1), listCity, queryCity);
 });
 listCity.addEventListener("click", (e) => {
@@ -78,3 +80,10 @@ listCity.addEventListener("click", (e) => {
   searchCity();
 });
 loadEvents();
+
+eventsList.addEventListener("click", async (e) => {
+  const closest = e.target.closest("li");
+  const currentId = closest.dataset.id;
+  const modalData = await fetchModal(currentId);
+  containerModal.innerHTML = renderModal(modalData);
+});
