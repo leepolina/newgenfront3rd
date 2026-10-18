@@ -717,13 +717,13 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var _services = require("./services");
 var _search = require("./search");
 var _fetchCity = require("./fetchCity");
-let totalPage = 20;
+var _modal = require("./modal");
 const eventsList = document.querySelector("#events-list");
 const inputName = document.querySelector(".header_input[data=name]");
 const inputCity = document.querySelector(".header_input[data=city]");
 const listCity = document.querySelector(".header_list-city");
 const option = document.querySelector(".header_option-button");
-const pagination = document.querySelector("#pagination");
+const containerModal = document.querySelector(".containerModal");
 let page = 1;
 let showNextPages = false;
 function renderEvents(events) {
@@ -849,9 +849,15 @@ listCity.addEventListener("click", (e)=>{
     inputCity.value = city;
     searchCity();
 });
-loadEvents(1);
+loadEvents();
+eventsList.addEventListener("click", async (e)=>{
+    const closest = e.target.closest("li");
+    const currentId = closest.dataset.id;
+    const modalData = await (0, _fetchCity.fetchModal)(currentId);
+    containerModal.innerHTML = (0, _modal.renderModal)(modalData);
+});
 
-},{"./services":"6C6UP","./search":"2ZG6y","./fetchCity":"8QiZ2"}],"6C6UP":[function(require,module,exports,__globalThis) {
+},{"./services":"6C6UP","./search":"2ZG6y","./fetchCity":"8QiZ2","./modal":"jJ31c"}],"6C6UP":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 // fetch(
@@ -921,6 +927,9 @@ async function fetchSearch(page, query) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "fetchCity", ()=>fetchCity);
+parcelHelpers.export(exports, "fetchModal", ()=>fetchModal);
+var _modal = require("./modal");
+var _modalDefault = parcelHelpers.interopDefault(_modal);
 var _renderCity = require("./renderCity");
 var _renderCityDefault = parcelHelpers.interopDefault(_renderCity);
 const API_KEY = "nodlSYDYPs3zawFkRJQUF5HZXVlBWBCZ";
@@ -937,8 +946,17 @@ async function fetchCity(page = 1, listCity, queryCity) {
         console.error(error);
     }
 }
+async function fetchModal(id) {
+    try {
+        const data = await fetch(`${BASE_URL}events.json?apikey=${API_KEY}&id=${id}`);
+        const mod = await data.json();
+        return mod;
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-},{"./renderCity":"f7t3F","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"f7t3F":[function(require,module,exports,__globalThis) {
+},{"./renderCity":"f7t3F","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./modal":"jJ31c"}],"f7t3F":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>renderCity);
@@ -955,6 +973,38 @@ function renderCity(data, container) {
       <p class="header_text-city">${countryName}</p>
     </li>`;
     }).join("");
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jJ31c":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "renderModal", ()=>renderModal);
+function renderModal(event) {
+    return `<div class="backdrop">
+             <div class="modal">
+             <button id="modal-close">X</button>
+              <img src="" alt="" class="mod-circle-img"/>
+
+              <img src="" alt="" class="mod-img"/>
+
+              <div>
+                <h4 class="mod-heading">info</h4>
+                <p class="mod-subheadings"></p>
+                <h4 class="mod-heading">when</h4>
+                <p class="mod-subheadings"></p>
+                <h4 class="mod-heading">where</h4>
+                <p class="mod-subheadings"></p>
+                <h4 class="mod-heading">who</h4>
+                <p class="mod-subheadings"></p>
+                <h4 class="mod-heading">prices</h4>
+                <p class="mod-subheadings"></p>
+                <button class="mod-btn-buy-tickets">BUY TICKETS</button>
+                <p class="mod-subheadings"></p>
+                <button class="mod-btn-buy-tickets">BUY TICKETS</button>
+              </div>
+              <button class="mod-btn-more">MORE FROM THIS AUTHOR</button>
+            </div>
+             </div>`;
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["93v64","lhpGb"], "lhpGb", "parcelRequire2f81", {})
