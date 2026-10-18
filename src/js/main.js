@@ -3,6 +3,7 @@ import { fetchSearch } from "./search";
 import { fetchCity, fetchModal } from "./fetchCity";
 import { renderModal } from "./modal";
 
+let totalPage = 20;
 const eventsList = document.querySelector("#events-list");
 const inputName = document.querySelector(".header_input[data=name]");
 const inputCity = document.querySelector(".header_input[data=city]");
@@ -153,7 +154,6 @@ listCity.addEventListener("click", (e) => {
   inputCity.value = city;
   searchCity();
 });
-loadEvents();
 
 eventsList.addEventListener("click", async (e) => {
   const closest = e.target.closest("li");
@@ -161,3 +161,5 @@ eventsList.addEventListener("click", async (e) => {
   const modalData = await fetchModal(currentId);
   containerModal.innerHTML = renderModal(modalData);
 });
+
+loadEvents(1);
