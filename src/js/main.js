@@ -91,8 +91,11 @@ function createDots() {
   return span;
 }
 
-pagination.addEventListener("click", (event) => {
+pagination.addEventListener("click", async (event) => {
   const target = event.target;
+  const selectedPage = Number(target.dataset.page);
+  let queryName = inputName.value.trim();
+  let queryCity = inputCity.value.trim();
   if (target.dataset.action === "first") {
     page = 1;
     showNextPages = false;
@@ -105,16 +108,29 @@ pagination.addEventListener("click", (event) => {
     loadEvents(page);
     return;
   }
-  const selectedPage = Number(target.dataset.page);
   if (!selectedPage) {
     return;
+  } else {
+    page = selectedPage;
+    if (queryCity === "" && queryName === "") {
+      loadEvents(page);
+    } else {
+      if (queryCity) {
+        const data = await fetchCity(page, listCity, queryCity);
+        renderEvents(data._embedded.events ?? []);
+        renderPagination(page);
+      } else {
+        const data = await fetchSearch(page, queryName);
+        renderEvents(data._embedded.events ?? []);
+        renderPagination(page);
+      }
+    }
   }
-  page = selectedPage;
-  loadEvents(page);
 });
 
 function searchName() {
   let queryName = inputName.value.trim();
+
   fetchSearch(page, queryName)
     .then((events) => {
       renderEvents(events);
