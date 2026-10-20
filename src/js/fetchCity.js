@@ -7,17 +7,19 @@ export async function fetchCity(page = 1, listCity, queryCity) {
     let response;
     if (!queryCity) {
       response = await fetch(
-        `${BASE_URL}events.json?apikey=${API_KEY}&page=${page}&size=200`
+        `${BASE_URL}events.json?apikey=${API_KEY}&page=${page}&size=200`,
       );
     } else {
       response = await fetch(
-        `${BASE_URL}events.json?apikey=${API_KEY}&page=${page}&keyword=${queryCity}`
+        `${BASE_URL}events.json?apikey=${API_KEY}&page=${page}&keyword=${queryCity}`,
       );
     }
 
     const data = await response.json();
-    console.log(data);
+
     renderCity(data._embedded.events ?? [], listCity);
+
+    return data;
   } catch (error) {
     console.error(error);
   }
@@ -26,7 +28,7 @@ export async function fetchCity(page = 1, listCity, queryCity) {
 export async function fetchModal(id) {
   try {
     const data = await fetch(
-      `${BASE_URL}events.json?apikey=${API_KEY}&id=${id}`
+      `${BASE_URL}events.json?apikey=${API_KEY}&id=${id}`,
     );
     const mod = await data.json();
     return mod;
