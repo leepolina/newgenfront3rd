@@ -201,6 +201,7 @@ ul {
   transition: opacity .3s, visibility .3s;
   display: flex;
   position: absolute;
+  right: 0;
   overflow-y: auto;
 }
 

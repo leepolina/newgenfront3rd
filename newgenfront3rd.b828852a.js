@@ -718,6 +718,7 @@ var _services = require("./services");
 var _search = require("./search");
 var _fetchCity = require("./fetchCity");
 var _modal = require("./modal");
+let totalPage = 20;
 const eventsList = document.querySelector("#events-list");
 const inputName = document.querySelector(".header_input[data=name]");
 const inputCity = document.querySelector(".header_input[data=city]");
@@ -794,8 +795,11 @@ function createDots() {
     span.textContent = "...";
     return span;
 }
-pagination.addEventListener("click", (event)=>{
+pagination.addEventListener("click", async (event)=>{
     const target = event.target;
+    const selectedPage = Number(target.dataset.page);
+    let queryName = inputName.value.trim();
+    let queryCity = inputCity.value.trim();
     if (target.dataset.action === "first") {
         page = 1;
         showNextPages = false;
@@ -808,10 +812,20 @@ pagination.addEventListener("click", (event)=>{
         loadEvents(page);
         return;
     }
-    const selectedPage = Number(target.dataset.page);
     if (!selectedPage) return;
-    page = selectedPage;
-    loadEvents(page);
+    else {
+        page = selectedPage;
+        if (queryCity === "" && queryName === "") loadEvents(page);
+        else if (queryCity) {
+            const data = await (0, _fetchCity.fetchCity)(page, listCity, queryCity);
+            renderEvents(data._embedded.events ?? []);
+            renderPagination(page);
+        } else {
+            const data = await (0, _search.fetchSearch)(page, queryName);
+            renderEvents(data._embedded.events ?? []);
+            renderPagination(page);
+        }
+    }
 });
 function searchName() {
     let queryName = inputName.value.trim();
@@ -849,13 +863,13 @@ listCity.addEventListener("click", (e)=>{
     inputCity.value = city;
     searchCity();
 });
-loadEvents();
 eventsList.addEventListener("click", async (e)=>{
     const closest = e.target.closest("li");
     const currentId = closest.dataset.id;
     const modalData = await (0, _fetchCity.fetchModal)(currentId);
     containerModal.innerHTML = (0, _modal.renderModal)(modalData);
 });
+loadEvents(1);
 
 },{"./services":"6C6UP","./search":"2ZG6y","./fetchCity":"8QiZ2","./modal":"jJ31c"}],"6C6UP":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -940,8 +954,8 @@ async function fetchCity(page = 1, listCity, queryCity) {
         if (!queryCity) response = await fetch(`${BASE_URL}events.json?apikey=${API_KEY}&page=${page}&size=200`);
         else response = await fetch(`${BASE_URL}events.json?apikey=${API_KEY}&page=${page}&keyword=${queryCity}`);
         const data = await response.json();
-        console.log(data);
         (0, _renderCityDefault.default)(data._embedded.events ?? [], listCity);
+        return data;
     } catch (error) {
         console.error(error);
     }
