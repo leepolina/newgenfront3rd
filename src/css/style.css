@@ -120,6 +120,7 @@ ul {
   }
 }
 .header_list {
+  
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -194,6 +195,7 @@ ul {
     visibility 0.3s ease;
   opacity: 1;
   visibility: visible;
+  right: 0;
 }
 .header_list-city-invisibily {
   opacity: 0;

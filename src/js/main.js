@@ -1,13 +1,15 @@
 import { fetchEvents } from "./services";
 import { fetchSearch } from "./search";
-import { fetchCity } from "./fetchCity";
+import { fetchCity, fetchModal } from "./fetchCity";
+import { renderModal } from "./modal";
+
 let totalPage = 20;
 const eventsList = document.querySelector("#events-list");
 const inputName = document.querySelector(".header_input[data=name]");
 const inputCity = document.querySelector(".header_input[data=city]");
 const listCity = document.querySelector(".header_list-city");
 const option = document.querySelector(".header_option-button");
-const pagination = document.querySelector("#pagination");
+const containerModal = document.querySelector(".containerModal");
 let page = 1;
 let showNextPages = false;
 function renderEvents(events) {
@@ -89,8 +91,11 @@ function createDots() {
   return span;
 }
 
-pagination.addEventListener("click", (event) => {
+pagination.addEventListener("click", async (event) => {
   const target = event.target;
+  const selectedPage = Number(target.dataset.page);
+  let queryName = inputName.value.trim();
+  let queryCity = inputCity.value.trim();
   if (target.dataset.action === "first") {
     page = 1;
     showNextPages = false;
@@ -103,16 +108,29 @@ pagination.addEventListener("click", (event) => {
     loadEvents(page);
     return;
   }
-  const selectedPage = Number(target.dataset.page);
   if (!selectedPage) {
     return;
+  } else {
+    page = selectedPage;
+    if (queryCity === "" && queryName === "") {
+      loadEvents(page);
+    } else {
+      if (queryCity) {
+        const data = await fetchCity(page, listCity, queryCity);
+        renderEvents(data._embedded.events ?? []);
+        renderPagination(page);
+      } else {
+        const data = await fetchSearch(page, queryName);
+        renderEvents(data._embedded.events ?? []);
+        renderPagination(page);
+      }
+    }
   }
-  page = selectedPage;
-  loadEvents(page);
 });
 
 function searchName() {
   let queryName = inputName.value.trim();
+
   fetchSearch(page, queryName)
     .then((events) => {
       renderEvents(events);
@@ -151,6 +169,13 @@ listCity.addEventListener("click", (e) => {
   let city = e.target.textContent;
   inputCity.value = city;
   searchCity();
+});
+
+eventsList.addEventListener("click", async (e) => {
+  const closest = e.target.closest("li");
+  const currentId = closest.dataset.id;
+  const modalData = await fetchModal(currentId);
+  containerModal.innerHTML = renderModal(modalData);
 });
 
 loadEvents(1);
