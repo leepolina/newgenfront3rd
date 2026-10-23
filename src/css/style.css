@@ -189,7 +189,9 @@ ul {
   gap: 5px;
   background-color: #ffffff33;
   border-radius: 20px;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
   opacity: 1;
   visibility: visible;
 }
@@ -247,7 +249,9 @@ ul {
 
   opacity: 1;
   transform: translate(-50%, -50%), scale(1);
-  transition: opacity 300ms ease, transform 300ms ease;
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
 }
 @media screen and (min-width: 768px) {
   .modal {
@@ -291,3 +295,4 @@ ul {
   right: 0.5%;
   top: 5%;
 }
+
