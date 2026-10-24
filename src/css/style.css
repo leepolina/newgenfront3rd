@@ -189,9 +189,13 @@ ul {
   gap: 5px;
   background-color: #ffffff33;
   border-radius: 20px;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
   opacity: 1;
   visibility: visible;
+  right: 0;
+  overflow-x: hidden;
 }
 .header_list-city-invisibily {
   opacity: 0;
