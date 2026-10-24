@@ -10,6 +10,7 @@ const inputCity = document.querySelector(".header_input[data=city]");
 const listCity = document.querySelector(".header_list-city");
 const option = document.querySelector(".header_option-button");
 const containerModal = document.querySelector(".containerModal");
+const modal = document.querySelector(".modal");
 let page = 1;
 let showNextPages = false;
 function renderEvents(events) {
@@ -176,6 +177,30 @@ eventsList.addEventListener("click", async (e) => {
   const currentId = closest.dataset.id;
   const modalData = await fetchModal(currentId);
   containerModal.innerHTML = renderModal(modalData);
+
+  const btnClose = document.querySelector("#modal-close");
+
+  function closeModal() {
+    const backdrop = document.querySelector(".backdrop");
+
+    if (backdrop) {
+      backdrop.classList.remove("is-open");
+      backdrop.classList.add("is-closing");
+
+      setTimeout(() => {
+        containerModal.innerHTML = "";
+      }, 250);
+    } else {
+      containerModal.innerHTML = "";
+    }
+  }
+  btnClose.addEventListener("click", closeModal);
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
 });
 
 loadEvents(1);
