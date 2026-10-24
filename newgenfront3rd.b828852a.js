@@ -177,7 +177,7 @@
 
   // Only insert newRequire.load when it is actually used.
   // The code in this file is linted against ES5, so dynamic import is not allowed.
-  // INSERT_LOAD_HERE
+  function $parcel$resolve(url) {  url = importMap[url] || url;  return import.meta.resolve(distDir + url);}newRequire.resolve = $parcel$resolve;
 
   Object.defineProperty(newRequire, 'root', {
     get: function () {
@@ -725,6 +725,7 @@ const inputCity = document.querySelector(".header_input[data=city]");
 const listCity = document.querySelector(".header_list-city");
 const option = document.querySelector(".header_option-button");
 const containerModal = document.querySelector(".containerModal");
+const modal = document.querySelector(".modal");
 let page = 1;
 let showNextPages = false;
 function renderEvents(events) {
@@ -868,6 +869,21 @@ eventsList.addEventListener("click", async (e)=>{
     const currentId = closest.dataset.id;
     const modalData = await (0, _fetchCity.fetchModal)(currentId);
     containerModal.innerHTML = (0, _modal.renderModal)(modalData);
+    const btnClose = document.querySelector("#modal-close");
+    function closeModal() {
+        const backdrop = document.querySelector(".backdrop");
+        if (backdrop) {
+            backdrop.classList.remove("is-open");
+            backdrop.classList.add("is-closing");
+            setTimeout(()=>{
+                containerModal.innerHTML = "";
+            }, 250);
+        } else containerModal.innerHTML = "";
+    }
+    btnClose.addEventListener("click", closeModal);
+    window.addEventListener("click", (e)=>{
+        if (e.target === modal) closeModal();
+    });
 });
 loadEvents(1);
 
@@ -973,36 +989,49 @@ async function fetchModal(id) {
 },{"./modal":"jJ31c","./renderCity":"f7t3F","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jJ31c":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "renderModal", ()=>renderModal);
+parcelHelpers.export(exports, "renderModal", ()=>renderModal) /*  */ ;
+var _symbolDefsSvg = require("url:../img/symbol-defs.svg");
+var _symbolDefsSvgDefault = parcelHelpers.interopDefault(_symbolDefsSvg);
 function renderModal(event) {
-    return `<div class="backdrop">
-             <div class="modal">
-             <button id="modal-close">X</button>
-              <img src="" alt="" class="mod-circle-img"/>
+    return `<div class="backdrop is-open">
+  <div class="modal">
+    <button id="modal-close">
+      <svg class="modal-close-svg">
+        <use href="${0, _symbolDefsSvgDefault.default}#icon-close"></use>
+      </svg>
+    </button>
 
-              <img src="" alt="" class="mod-img"/>
+    <img src="${event._embedded.events[0].images[0].url}" alt="" class="mod-circle-img" />
 
-              <div>
-                <h4 class="mod-heading">info</h4>
-                <p class="mod-subheadings"></p>
+    <div class="modal-content">
+      <img src="${event._embedded.events[0].images[0].url}" alt="" class="mod-img" />
+
+      <div class="modal-info">
+        <h4 class="mod-heading">info</h4>
+                <p class="mod-subheadings">${event._embedded.events[0].promoter.description || "Descrition missing"}</p>
                 <h4 class="mod-heading">when</h4>
-                <p class="mod-subheadings"></p>
+                <p class="mod-subheadings">${event._embedded.events[0].dates.start.localDate || "Date not found"}</p>
                 <h4 class="mod-heading">where</h4>
-                <p class="mod-subheadings"></p>
+                <p class="mod-subheadings">${event._embedded.events[0].dates.timezone || "Region not found"}</p>
                 <h4 class="mod-heading">who</h4>
-                <p class="mod-subheadings"></p>
+                <p class="mod-subheadings">${event._embedded.events[0].name || "Band / singer not found"}</p>
                 <h4 class="mod-heading">prices</h4>
-                <p class="mod-subheadings"></p>
+                <p class="mod-subheadings">Standart 300-500 UAH</p>
                 <button class="mod-btn-buy-tickets">BUY TICKETS</button>
-                <p class="mod-subheadings"></p>
+                <p class="mod-subheadings">VIP 1000-1500 UAH</p>
                 <button class="mod-btn-buy-tickets">BUY TICKETS</button>
-              </div>
-              <button class="mod-btn-more">MORE FROM THIS AUTHOR</button>
-            </div>
-             </div>`;
+      </div>
+    </div>
+
+    <button class="mod-btn-more">MORE FROM THIS AUTHOR</button>
+  </div>
+</div>`;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"f7t3F":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","url:../img/symbol-defs.svg":"d6uzy"}],"d6uzy":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("symbol-defs.52fad276.svg") + "?" + Date.now();
+
+},{}],"f7t3F":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>renderCity);
@@ -1021,6 +1050,6 @@ function renderCity(data, container) {
     }).join("");
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["93v64","lhpGb"], "lhpGb", "parcelRequire2f81", {})
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["93v64","lhpGb"], "lhpGb", "parcelRequire2f81", {}, "./", "/")
 
 //# sourceMappingURL=newgenfront3rd.b828852a.js.map
