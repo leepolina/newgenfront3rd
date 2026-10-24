@@ -970,26 +970,7 @@ async function fetchModal(id) {
     }
 }
 
-},{"./renderCity":"f7t3F","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./modal":"jJ31c"}],"f7t3F":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>renderCity);
-function renderCity(data, container) {
-    container.innerHTML = "";
-    const allCountries = data.map((event)=>{
-        return event._embedded?.venues?.[0]?.city?.name;
-    });
-    const countries = [
-        ...new Set(allCountries)
-    ].filter((country)=>country);
-    container.innerHTML = countries.map((countryName)=>{
-        return `<li class="header_item-city">
-      <p class="header_text-city">${countryName}</p>
-    </li>`;
-    }).join("");
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jJ31c":[function(require,module,exports,__globalThis) {
+},{"./modal":"jJ31c","./renderCity":"f7t3F","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jJ31c":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderModal", ()=>renderModal);
@@ -1019,6 +1000,25 @@ function renderModal(event) {
               <button class="mod-btn-more">MORE FROM THIS AUTHOR</button>
             </div>
              </div>`;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"f7t3F":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>renderCity);
+function renderCity(data, container) {
+    container.innerHTML = "";
+    const allCountries = data.map((event)=>{
+        return event._embedded?.venues?.[0]?.city?.name;
+    });
+    const countries = [
+        ...new Set(allCountries)
+    ].filter((country)=>country);
+    container.innerHTML = countries.map((countryName)=>{
+        return `<li class="header_item-city">
+      <p class="header_text-city">${countryName}</p>
+    </li>`;
+    }).join("");
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["93v64","lhpGb"], "lhpGb", "parcelRequire2f81", {})
